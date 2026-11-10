@@ -1,0 +1,281 @@
+<!doctype html><html lang="uk"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="dark"><title>Секція дозволеного програмного забезпечення</title><style>
+    :root {
+      --ink: #f6f1e8;
+      --muted: #c4b6a3;
+      --orange: #ffa64b;
+      --orange-deep: #d77620;
+      --line: rgba(255, 255, 255, .09);
+      --panel: rgba(22, 20, 18, .88);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      color: var(--ink);
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: #1b1918;
+    }
+
+    .page {
+      min-height: 100vh;
+      padding: 52px clamp(20px, 5vw, 76px) 64px;
+      overflow: hidden;
+      position: relative;
+      background: radial-gradient(ellipse 58% 42% at 84% 4%, rgba(173, 98, 35, .50), transparent 66%), radial-gradient(ellipse 46% 40% at 11% 44%, rgba(92, 62, 38, .22), transparent 70%), linear-gradient(135deg, #29201c 0%, #181718 54%, #171616 100%);
+    }
+
+    .page::before,
+    .page::after {
+      content: "";
+      position: absolute;
+      inset: -20%;
+      pointer-events: none;
+      opacity: .52;
+      background: repeating-radial-gradient(ellipse at 28% 45%, transparent 0 40px, rgba(255, 255, 255, .08) 41px 42px, transparent 43px 72px);
+      transform: rotate(-7deg);
+    }
+
+    .page::after {
+      inset: -30%;
+      opacity: .26;
+      background: repeating-linear-gradient(94deg, transparent 0 45px, rgba(255, 255, 255, .09) 46px 47px, transparent 48px 78px);
+      transform: rotate(11deg);
+    }
+
+    main {
+      position: relative;
+      z-index: 1;
+      max-width: 1300px;
+      margin: auto;
+    }
+
+    header {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 22px;
+      margin-bottom: 32px;
+    }
+
+    h1 {
+      font-size: clamp(28px, 4vw, 43px);
+      font-weight: 650;
+      margin: 0;
+      letter-spacing: .02em;
+    }
+
+    header p {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .hint {
+      margin: 0 0 3px;
+      color: var(--orange);
+      font-size: 14px;
+      white-space: nowrap;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(228px, 1fr));
+      gap: 18px;
+    }
+
+    .app {
+      position: relative;
+      display: flex;
+      min-height: 202px;
+      padding: 23px;
+      isolation: isolate;
+      overflow: hidden;
+      text-decoration: none;
+      color: inherit;
+      border: 1px solid var(--line);
+      border-radius: 17px;
+      background: linear-gradient(145deg, rgba(37, 34, 31, .96), var(--panel));
+      box-shadow: 0 16px 32px rgba(0, 0, 0, .19);
+      transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+    }
+
+    .app::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      opacity: 0;
+      background: linear-gradient(135deg, rgba(255, 166, 75, .16), transparent 62%);
+      transition: opacity .2s ease;
+    }
+
+    .app:hover,
+    .app:focus-visible {
+      transform: translateY(-5px);
+      border-color: rgba(255, 166, 75, .76);
+      box-shadow: 0 22px 42px rgba(0, 0, 0, .34);
+      outline: none;
+    }
+
+    .app:hover::before,
+    .app:focus-visible::before {
+      opacity: 1;
+    }
+
+    .content {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 72px;
+      height: 56px;
+      margin-bottom: auto;
+      overflow: hidden;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, .035);
+    }
+
+    .logo img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+
+    .logo.google {
+      color: #67a666;
+      background: rgba(255, 255, 255, .08);
+      font-size: 34px;
+      font-weight: 700;
+    }
+
+    .name {
+      margin: 19px 0 0;
+      font-size: 19px;
+      font-weight: 650;
+      line-height: 1.18;
+    }
+
+    .environment {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 4px 9px;
+      border: 1px solid rgba(255, 166, 75, .46);
+      border-radius: 999px;
+      color: #ffd29f;
+      font-size: 12px;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+
+    .open {
+      position: absolute;
+      top: 21px;
+      right: 21px;
+      color: var(--orange);
+      font-size: 20px;
+      line-height: 1;
+    }
+
+    .description {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: end;
+      padding: 23px;
+      border-radius: 16px;
+      background: linear-gradient(0deg, rgba(13, 12, 12, .985) 8%, rgba(20, 18, 16, .91) 72%, rgba(20, 18, 16, .42));
+      color: #f4ede3;
+      font-size: 15px;
+      line-height: 1.43;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity .2s ease, transform .2s ease;
+    }
+
+    .app:hover .description,
+    .app:focus-visible .description {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    footer {
+      margin-top: 31px;
+      color: #a99c8d;
+      font-size: 13px;
+    }
+
+    @media (max-width:600px) {
+      .page {
+        padding: 34px 18px 45px;
+      }
+
+      header {
+        align-items: start;
+        flex-direction: column;
+        margin-bottom: 24px;
+      }
+
+      .hint {
+        white-space: normal;
+      }
+
+      .app {
+        min-height: 184px;
+      }
+    }
+
+    @media (prefers-reduced-motion:reduce) {
+
+      .app,
+      .app::before,
+      .description {
+        transition: none;
+      }
+    }
+
+    .tabs {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin: 0 auto 36px;
+    }
+
+    .tab {
+      padding: 10px 16px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--muted);
+      background: rgba(22, 20, 18, .68);
+      font-size: 14px;
+      text-decoration: none;
+      transition: .2s ease;
+    }
+
+    .tab:hover,
+    .tab:focus-visible {
+      color: var(--ink);
+      border-color: rgba(255, 166, 75, .7);
+      outline: none;
+    }
+
+    .tab.active {
+      color: #1e1711;
+      border-color: var(--orange);
+      background: var(--orange);
+      font-weight: 650;
+    }
+  
+html{zoom:.85}.page{min-height:calc(100vh / .85)}.logo{color:#ffa64b;margin-bottom:0;width:64px;height:56px}.logo svg{width:36px;height:36px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}.app{min-height:310px}.summary{color:var(--muted);font-size:15px;line-height:1.55;margin:18px 0 24px}.site{margin-top:auto;color:var(--orange);font-size:13px}.grid{grid-template-columns:repeat(4,minmax(0,1fr))}header{align-items:start}h1{max-width:1000px}footer{display:flex;justify-content:space-between;gap:16px}@media(max-width:1000px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:560px){.grid{grid-template-columns:1fr}footer{flex-direction:column}.app{min-height:280px}}</style><style>.logo img{width:48px;height:48px;object-fit:contain;image-rendering:auto}</style><style id="support-styles">.grid{grid-template-columns:repeat(3,minmax(0,1fr))}.support{margin-top:42px}.support>h2{font-size:25px;font-weight:650;letter-spacing:.02em;margin:0 0 22px}.support-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}.support-card{padding:23px;border:1px solid var(--line);border-radius:17px;background:linear-gradient(145deg,rgba(37,34,31,.96),var(--panel));box-shadow:0 16px 32px rgba(0,0,0,.19)}.support-card h3{margin:0 0 20px;font-size:20px;color:var(--orange);font-weight:650}.contact+.contact{margin-top:18px;padding-top:16px;border-top:1px solid var(--line)}.phone{display:block;font-size:18px;font-variant-numeric:tabular-nums;white-space:nowrap;user-select:all}.channel{display:block;margin-top:7px;color:var(--muted);font-size:14px;line-height:1.5}@media(max-width:1000px){.grid,.support-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:560px){.grid,.support-grid{grid-template-columns:1fr}}</style></head><body><div class="page"><main><header><div><h1>Секція дозволеного програмного забезпечення</h1><p>Цифровий простір 3 АК · Інструменти для щоденної роботи</p></div></header><section class="grid" aria-label="Дозволене програмне забезпечення"><a class="app" href="https://www.affinity.studio/" target="_blank" rel="noopener noreferrer"><div class="content"><div class="logo"><img src="data:image/png;base64,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" alt="Іконка Affinity" width="48" height="48"></div><h2 class="name">Affinity</h2><span class="environment">Дизайн</span><p class="summary">Графічний редактор для обробки фотографій, створення векторних ілюстрацій і верстки макетів.</p><span class="site">affinity.studio</span></div><span class="open" aria-label="Відкрити офіційний сайт у новій вкладці">↗</span></a>
+
+<a class="app" href="https://keepassxc.org/" target="_blank" rel="noopener noreferrer"><div class="content"><div class="logo"><img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHZpZXdCb3g9IjAgMCAxMjggMTI4Ij48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImUiIHgxPSI2My45OTk4IiB5MT0iLTMuMzE0IiB4Mj0iNjMuOTk5OCIgeTI9IjExOC40ODYiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiM0MTQxNDEiLz48c3RvcCBvZmZzZXQ9Ii4xOTYiIHN0b3AtY29sb3I9IiMzZTNlM2UiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMzYTNhM2EiLz48L2xpbmVhckdyYWRpZW50PjxyYWRpYWxHcmFkaWVudCBpZD0iZyIgY3g9IjMwMi44MDE0IiBjeT0iLTM3NS41MzAxIiBmeD0iMzAyLjgwMTQiIGZ5PSItMzc1LjUzMDEiIHI9IjIwNy4yMzM5IiBncmFkaWVudFRyYW5zZm9ybT0idHJhbnNsYXRlKC00Ni45OTkgMTg1LjUyNzUpIHNjYWxlKC4zNTM5KSIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPjxzdG9wIG9mZnNldD0iLjY3MzMiIHN0b3AtY29sb3I9IiNmY2ZjZmMiIHN0b3Atb3BhY2l0eT0iMCIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2ZjZmNmYyIvPjwvcmFkaWFsR3JhZGllbnQ+PHJhZGlhbEdyYWRpZW50IGlkPSJpIiBjeD0iMzExLjE0NzIiIGN5PSItMzQ4LjIzMjUiIGZ4PSIzMTEuMTQ3MiIgZnk9Ii0zNDguMjMyNSIgcj0iMTcyLjM4OTMiIGdyYWRpZW50VHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTQ2Ljk5OSAxODUuNTI3NSkgc2NhbGUoLjM1MzkpIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHN0b3Agb2Zmc2V0PSIuMTA4OCIgc3RvcC1jb2xvcj0iIzBmMGYwZCIgc3RvcC1vcGFjaXR5PSIwIi8+PHN0b3Agb2Zmc2V0PSIuODg1NiIgc3RvcC1jb2xvcj0iIzQxNDE0MSIgc3RvcC1vcGFjaXR5PSIwIi8+PHN0b3Agb2Zmc2V0PSIuOTMzOSIgc3RvcC1jb2xvcj0iIzFlMWUxZCIgc3RvcC1vcGFjaXR5PSIuNjg0MSIvPjxzdG9wIG9mZnNldD0iLjk4NzQiIHN0b3AtY29sb3I9IiMwZjBmMGQiLz48L3JhZGlhbEdyYWRpZW50PjxyYWRpYWxHcmFkaWVudCBpZD0ibiIgY3g9IjMxNi44OTI3IiBjeT0iLTQ1MS41OTczIiBmeD0iMzE2Ljg5MjciIGZ5PSItNDUxLjU5NzMiIHI9IjMzNC44MzY0IiBncmFkaWVudFRyYW5zZm9ybT0idHJhbnNsYXRlKC00Ni45OTkgMTE3LjkyNTYpIHNjYWxlKC4zNTM5IC4yMDI2KSIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iIzJlNmIyNiIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzZhYjUzNiIvPjwvcmFkaWFsR3JhZGllbnQ+PHJhZGlhbEdyYWRpZW50IGlkPSJwIiBjeD0iMzE0LjM4NzUiIGN5PSItNDUzLjM2MyIgZng9IjMxNC4zODc1IiBmeT0iLTQ1My4zNjMiIHI9IjY1LjM5MjUiIGdyYWRpZW50VHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTQ2Ljk5OSAxODUuNTI3NSkgc2NhbGUoLjM1MzkpIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjNmFiNTM2Ii8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMmU2YjI2Ii8+PC9yYWRpYWxHcmFkaWVudD48cmFkaWFsR3JhZGllbnQgaWQ9InIiIGN4PSIzMjIuMjEyOCIgY3k9Ii0zOTAuMjU0NyIgZng9IjMyMi4yMTI4IiBmeT0iLTM5MC4yNTQ3IiByPSI5Ni41ODUxIiBncmFkaWVudFRyYW5zZm9ybT0idHJhbnNsYXRlKC00NC4yMTk5IDI1Ni41NzUxKSBzY2FsZSguMzM1NiAuNTU3MikiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiMwMDAiLz48c3RvcCBvZmZzZXQ9Ii43ODQyIiBzdG9wLWNvbG9yPSIjNGY0ZjRmIiBzdG9wLW9wYWNpdHk9IjAiLz48L3JhZGlhbEdyYWRpZW50PjxyYWRpYWxHcmFkaWVudCBpZD0idSIgY3g9IjMxMi45OTQ2IiBjeT0iLTQ3My4wMTc4IiBmeD0iMzEyLjk5NDYiIGZ5PSItNDczLjAxNzgiIHI9IjIyMy41MTAxIiBncmFkaWVudFRyYW5zZm9ybT0idHJhbnNsYXRlKC00Ni45OTkgMTg1LjUyNzUpIHNjYWxlKC4zNTM5KSIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iI2Y1ZjVmNSIvPjxzdG9wIG9mZnNldD0iLjU0ODEiIHN0b3AtY29sb3I9IiNmMmYyZjIiLz48L3JhZGlhbEdyYWRpZW50PjwvZGVmcz48ZyBzdHlsZT0iaXNvbGF0aW9uOmlzb2xhdGU7Ij48ZyBpZD0iYiI+PGcgaWQ9ImMiPjxyZWN0IHdpZHRoPSIxMjgiIGhlaWdodD0iMTI4IiBzdHlsZT0iZmlsbDpub25lOyBzdHJva2Utd2lkdGg6MHB4OyIvPjxnIGlkPSJkIj48cGF0aCBpZD0iZiIgZD0ibTYzLjk5OTksMTI0LjljLTMzLjU4MDUsMC02MC45MDAxLTI3LjMxOTgtNjAuOTAwMS02MC45UzMwLjQxOTQsMy4xLDYzLjk5OTksMy4xczYwLjg5OTksMjcuMzE5NSw2MC44OTk5LDYwLjktMjcuMzE5Myw2MC45LTYwLjg5OTksNjAuOVptMC0xMTYuNjc1OWMtMzAuNzQxNSwwLTU1Ljc1MTUsMjUuMDIxLTU1Ljc1MTUsNTUuNzc1OXMyNS4wMSw1NS43NzU5LDU1Ljc1MTUsNTUuNzc1OSw1NS43NTEyLTI1LjAyMTIsNTUuNzUxMi01NS43NzU5Uzk0Ljc0MTQsOC4yMjQxLDYzLjk5OTksOC4yMjQxWiIgc3R5bGU9ImZpbGw6dXJsKCNlKTsgc3Ryb2tlLXdpZHRoOjBweDsiLz48cGF0aCBpZD0iaCIgZD0ibTYzLjk5OTksMy4xMjM4QzMwLjQzMjUsMy4xMjM4LDMuMTIzNiwzMC40MzI3LDMuMTIzNiw2NHMyNy4zMDg5LDYwLjg3NjIsNjAuODc2Myw2MC44NzYyLDYwLjg3NjEtMjcuMzA5MSw2MC44NzYxLTYwLjg3NjJTOTcuNTY3NCwzLjEyMzgsNjMuOTk5OSwzLjEyMzhaIiBzdHlsZT0iZmlsbDp1cmwoI2cpOyBtaXgtYmxlbmQtbW9kZTpsaWdodGVuOyBvcGFjaXR5Oi4zMjsgc3Ryb2tlLXdpZHRoOjBweDsiLz48cGF0aCBpZD0iaiIgZD0ibTYzLjk5OTksMTI0LjljLTMzLjU4MDUsMC02MC45MDAxLTI3LjMxOTgtNjAuOTAwMS02MC45UzMwLjQxOTQsMy4xLDYzLjk5OTksMy4xczYwLjg5OTksMjcuMzE5NSw2MC44OTk5LDYwLjktMjcuMzE5Myw2MC45LTYwLjg5OTksNjAuOVptMC0xMTYuNjc1OWMtMzAuNzQxNSwwLTU1Ljc1MTUsMjUuMDIxLTU1Ljc1MTUsNTUuNzc1OXMyNS4wMSw1NS43NzU5LDU1Ljc1MTUsNTUuNzc1OSw1NS43NTEyLTI1LjAyMTIsNTUuNzUxMi01NS43NzU5Uzk0Ljc0MTQsOC4yMjQxLDYzLjk5OTksOC4yMjQxWiIgc3R5bGU9ImZpbGw6dXJsKCNpKTsgb3BhY2l0eTouNDQ7IHN0cm9rZS13aWR0aDowcHg7Ii8+PHBhdGggaWQ9ImsiIGQ9Im02My45OTk5LDguNTUwNGMtMzAuOTc4MywwLTU2LjE4MDksMjUuMjAyNS01Ni4xODA5LDU2LjE4MDhzMjUuMjAyNSw1Ni4xODA4LDU2LjE4MDksNTYuMTgwOCw1Ni4xODA3LTI1LjIwMjgsNTYuMTgwNy01Ni4xODA4Uzk0Ljk3ODMsOC41NTA0LDYzLjk5OTksOC41NTA0WiIgc3R5bGU9ImZpbGw6cmdiYSgxNSwxNSwxMywuMzUpOyBzdHJva2Utd2lkdGg6MHB4OyIvPjxwYXRoIGlkPSJsIiBkPSJtNjMuOTk5OSwxMjQuOWMtMzMuNTgwNSwwLTYwLjkwMDEtMjcuMzE5OC02MC45MDAxLTYwLjlTMzAuNDE5NCwzLjEsNjMuOTk5OSwzLjFzNjAuODk5OSwyNy4zMTk1LDYwLjg5OTksNjAuOS0yNy4zMTkzLDYwLjktNjAuODk5OSw2MC45Wm0wLTEyMC40OTY2QzMwLjQxOTUsNC40MDM0LDMuMDk5OCwzMS4zNTk2LDMuMDk5OCw2NC40OTMyczI3LjMxOTcsNjAuMDg5OCw2MC45MDAxLDYwLjA4OTgsNjAuODk5OS0yNi45NTY1LDYwLjg5OTktNjAuMDg5OFM5Ny41ODA0LDQuNDAzNCw2NCw0LjQwMzRaIiBzdHlsZT0iZmlsbDojMGYwZjBkOyBvcGFjaXR5Oi4zNTsgc3Ryb2tlLXdpZHRoOjBweDsiLz48L2c+PGcgaWQ9Im0iPjxwYXRoIGlkPSJvIiBkPSJtNjMuOTk5OSw4LjIyNDFjLTMwLjc1NTEsMC01NS43NzYsMjUuMDIwOS01NS43NzYsNTUuNzc1OXMyNS4wMjA5LDU1Ljc3NTksNTUuNzc2LDU1Ljc3NTksNTUuNzc1OC0yNS4wMjExLDU1Ljc3NTgtNTUuNzc1OVM5NC43NTUsOC4yMjQxLDYzLjk5OTksOC4yMjQxWiIgc3R5bGU9ImZpbGw6dXJsKCNuKTsgc3Ryb2tlLXdpZHRoOjBweDsiLz48cGF0aCBpZD0icSIgZD0ibTYzLjk5OTgsMTIuODYxM2MtOS4xNjA4LDAtMTYuNjEzNiw3LjQ1MjgtMTYuNjEzNiwxNi42MTM1czcuNDUyOCwxNi42MTM1LDE2LjYxMzYsMTYuNjEzNSwxNi42MTM1LTcuNDUyOCwxNi42MTM1LTE2LjYxMzUtNy40NTI3LTE2LjYxMzUtMTYuNjEzNS0xNi42MTM1WiIgc3R5bGU9ImZpbGw6dXJsKCNwKTsgbWl4LWJsZW5kLW1vZGU6bGlnaHRlbjsgb3BhY2l0eTouNzsgc3Ryb2tlLXdpZHRoOjBweDsiLz48cGF0aCBpZD0icyIgZD0ibTM0LjY4NzEsMTYuMzY0NWMtLjAwMjcuMDE5MS0uMDA1NC4wMzc4LS4wMDgxLjA1NjktLjA3MjUuMDEzNi0uMDczNi0uMDAzNy4wMDgxLS4wNTY5Wm00Mi4xMTc3LDM1LjgwMDFsLS43NzE0LDEzLjc4MjIsOS4xMDIzLDkuOTE2NS05LjEwMjMsOS45MTY1LDYuMDE2OCw2LjU1NDktNi4wMTY4LDYuNTU0OS43NzE0LDEzLjY2OTZoLTI1LjYxdi02MC4zOTQ2Yy0xMC4xODIzLTUuMjEwNC0xNy4xMjQ4LTE2LjQ3MTQtMTcuMTI0OC0yOS40MTMyLDAtMi4xNjU5LjMwMzItNC4xNjcxLjYwOS02LjMzLDEuMTA0Ni0uMjA4MiwxOC45NjczLTcuNjk0NywxOC45NjczLTcuNjk0Ny0uMTQ4My44MDkyLDIwLjg1NTEuODA5MiwyMC43MDY4LDAsMCwwLDE3LjI1NzcsNy40MjU3LDE4Ljk4OTEsNy43ODk5LjQzOCwyLjEyNjQuNTg3Myw0LjEwMS41ODczLDYuMjM0OCwwLDEyLjk0MTgtNy4wOTY4LDI0LjIwMjktMTcuMTI0OCwyOS40MTMzWm0xNi41MDc3LTM1LjgwMDFjLjAxMDguMDUxMS4wMTk0LjEwMTEuMDI5OS4xNTIxLjE4OTYuMDM5OS4xOTYtLjAwMzUtLjAyOTktLjE1MjFaIiBzdHlsZT0iZmlsbDp1cmwoI3IpOyBtaXgtYmxlbmQtbW9kZTptdWx0aXBseTsgb3BhY2l0eTouMzsgc3Ryb2tlLXdpZHRoOjBweDsiLz48cGF0aCBpZD0idCIgZD0ibTM0LjExNjEsMTAwLjQzMTljLTkuODk3Ny04LjYwODEtMTYuMTY0LTIxLjI5NjktMTYuMTY0LTM1LjQ5NjgsMC0xNi41MjI3LDguNjQwOS0zMS43NzQ0LDIyLjg3MjgtNDAuMjktLjI1NDEsMS42NTIzLS41MDgzLDMuMTc3NC0uNTA4Myw0LjgyOTcsMCw5Ljc4NjUsNS43MTgyLDE4LjMwMiwxNC4xMDQ5LDIyLjI0MjF2NDQuNjExM2wxMC41NDY5LDEwLjU0OTEsMTAuNTQ2OS0xMC41NDkxLS42MzU0LTkuMjc4MSw0Ljk1NTgtNC45NTY4LTQuOTU1OC00Ljk1NjgsNy40OTcyLTcuNDk4OC03LjQ5NzItNy40OTg4LjYzNTQtMTAuNDIyYzguMjU5Ni0zLjk0LDE0LjEwNDktMTIuNDU1NiwxNC4xMDQ5LTIyLjI0MjEsMC0xLjY1MjMtLjEyNzEtMy4xNzc0LS41MDgzLTQuODI5Nyw1LjE2NDMsMy4xMTc4LDkuNTkyMiw3LjE0MTYsMTMuMTQxOSwxMS43OTcyLTguNTg0MS0xMS43ODg5LTIyLjUyOTMtMTkuNDU4Ny0zOC4yNzY2LTE5LjQ1ODctMjYuMDkxMSwwLTQ3LjI0MjEsMjEuMDUtNDcuMjQyMSw0Ny4wMTY1LDAsMTQuNjkzLDYuNzczNiwyNy44MTAxLDE3LjM4MDksMzYuNDMxOFptMjcuNDIxNC03LjY2MjRoLTMuNTU4di0zNS4yMDYxaDMuNTU4djM1LjIwNjFabS01LjA4MjgtNzMuOTcwOGMyLjc5NTYtLjUwODQsNS43MTgyLS43NjI2LDguNTEzOC0uNzYyNiwyLjkyMjYtLjEyNzEsNS43MTgyLjI1NDIsOC41MTM4Ljc2MjYuMTI3MS42MzU1LjI1NDIsMS4yNzEuMjU0MiwxLjkwNjQsMCw0LjgyOTctMy45MzkyLDguNzY5OC04Ljc2NzksOC43Njk4cy04Ljc2NzktMy45NC04Ljc2NzktOC43Njk4YzAtLjYzNTUuMTI3MS0xLjI3MDkuMjU0Mi0xLjkwNjRaIiBzdHlsZT0iZmlsbDojMGYwZjBkOyBtaXgtYmxlbmQtbW9kZTptdWx0aXBseTsgb3BhY2l0eTouMjsgc3Ryb2tlLXdpZHRoOjBweDsiLz48cGF0aCBpZD0idiIgZD0ibTYzLjk5OTksOC4yMjQxYy0zMC43NDE1LDAtNTUuNzUxNCwyNS4wMjA5LTU1Ljc1MTQsNTUuNzc1OXMyNS4wMSw1NS43NzU5LDU1Ljc1MTQsNTUuNzc1OSw1NS43NTEyLTI1LjAyMTIsNTUuNzUxMi01NS43NzU5Uzk0Ljc0MTQsOC4yMjQxLDYzLjk5OTksOC4yMjQxWm0tOC41MTM4LDkuNTg4MmMyLjc5NTYtLjUwODQsNS43MTgyLS43NjI2LDguNTEzOC0uNzYyNiwyLjkyMjYtLjEyNzEsNS43MTgyLjI1NDIsOC41MTM4Ljc2MjYuMTI3MS42MzU1LjI1NDIsMS4yNzEuMjU0MiwxLjkwNjQsMCw0LjgyOTctMy45MzkyLDguNzY5OC04Ljc2NzksOC43Njk4cy04Ljc2NzktMy45NC04Ljc2NzktOC43Njk4YzAtLjYzNTUuMTI3MS0xLjI3MDkuMjU0Mi0xLjkwNjRabTUuMDgyOCwzOC43NjQ4djM1LjIwNjFoLTMuNTU4di0zNS4yMDYxaDMuNTU4Wm0zLjQzMDksNTQuMzk3OGMtMjUuOTIyNSwwLTQ3LjAxNjMtMjAuOTcxMS00Ny4wMTYzLTQ3LjAyNjEsMC0xNi41MjI3LDguNjQwOS0zMS43NzQ0LDIyLjg3MjgtNDAuMjktLjI1NDEsMS42NTIzLS41MDgzLDMuMTc3NC0uNTA4Myw0LjgyOTcsMCw5Ljc4NjUsNS43MTgyLDE4LjMwMiwxNC4xMDQ5LDIyLjI0MjF2NDQuNjExM2wxMC41NDY5LDEwLjU0OTEsMTAuNTQ2OS0xMC41NDkxLS42MzU0LTkuMjc4MSw0Ljk1NTgtNC45NTY4LTQuOTU1OC00Ljk1NjgsNy40OTcyLTcuNDk4OC03LjQ5NzItNy40OTg4LjYzNTQtMTAuNDIyYzguMjU5Ni0zLjk0LDE0LjEwNDktMTIuNDU1NiwxNC4xMDQ5LTIyLjI0MjEsMC0xLjY1MjMtLjEyNzEtMy4xNzc0LS41MDgzLTQuODI5NywxNC4xMDQ5LDguNTE1NiwyMi43NDU3LDIzLjc2NzMsMjIuODcyOCw0MC4yOSwwLDI1LjkyNzktMjAuOTY2OCw0Ny4wMjYxLTQ3LjAxNjMsNDcuMDI2MVoiIHN0eWxlPSJmaWxsOnVybCgjdSk7IHN0cm9rZS13aWR0aDowcHg7Ii8+PC9nPjwvZz48L2c+PC9nPjwvc3ZnPg==" alt="Логотип KeePassXC" width="48" height="48"></div><h2 class="name">KeePassXC</h2><span class="environment">Паролі</span><p class="summary">Менеджер паролів, який зберігає облікові дані в зашифрованій базі та допомагає створювати складні паролі.</p><span class="site">keepassxc.org</span></div><span class="open" aria-label="Відкрити офіційний сайт у новій вкладці">↗</span></a>
+<a class="app" href="https://www.pdfgear.com/" target="_blank" rel="noopener noreferrer"><div class="content"><div class="logo"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC4AAAAuCAYAAABXuSs3AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAfkSURBVHja1ZQLUFTXHcbPTEWJxgSDRq1KSHzxUhZQUTBI4qvEKR1NTEwyiiY2nTEqqRolGsXUjgbFxGqLNU01xlg7pj5bgrFxmGltY8C4voqoyAILaHkMuLCwsOz9ch5393jvhVmXHWfMmfnN//Wd7/y97kDcB6bkIMQmbUTclHwa8XAxxYy4pDTiOXLpUMQkWRD7LDSIi8ZejJrHeNMnSZ3/3ixaYJoYKhenSzOhf0y+v57/3hb26yAwPbsQJjqQMKERUyKFR6nRR4nUPhjvTELFZgp+ZOQTmBLwY4QgehI6xdRVnQAvd2R8cN5s8YlyyHJZG3tjeW7oGzyk1n/vyTOATz8DLl8Fzl8Acv4ENDSAsAsPLYuXAnX1wHkzkDgdmDsf6mGLx+P+mMijD3r/tNt3gp8jJ2TvwCHR2/oxCMbEQzABXnIdE+TMi9Zn70/2gZ+C87KXMhtwuYA/fsprgih22Qd80HfLe/NW8GOtAhKmyhn7uRQVA/FTWM0WH4+HhpmpQEMjUFsHzHlV9jduBmw2Ov+FqOMmgyByHC0okRJaM4GMupn2jtTo9T57554CPx9my96MVKC1lfa2S/1fDoMgIo4WviHvjLs/nXf41+bnapH0Zn8SS8uAy1ekbks2sGGTunhErEqcjlgZpcabVua+eP8uB/zMWyA1XxwSP521maJ+8TXgo508J9JYR3iMl753fPI+dhI4VyjrDb8BzuQDJaWinpQM/PVLYFwirwkzMTBtFvtXSjLeB156TatJW6zVrMwAZs8zei1dweZGJiRpdYePAFu2ifzP+4H3NgBV1cCKNUA81Z79L5A8061ni5tgIP1ddHrO5EsN+0LGIx6YMkPqrJWd66alaN7kH+fUaWD/QeCXS4DfZom7U18Ajv+DRY2eIMwEA+mrwM/RE8CCN4FFbwFWq+hl72AaPuPnsy+YRtyxlIlebp70EveExxuURSrhMcZ3E5LV+Jz42pmbgLyvgRdmG7REGR0NJYwymjGW51guFld27WZ9Dn69GvyczBV69+IZ6+HxYA/abICzA5iawvqexVVvbRTetJaRs/dzoLER2LsfyvM/U+dSAwrpGDUGepTlK9TFc2Rv1x9E79gJUR85zmtXxvuauzhXKPoL3mC1XHxJuuRXb6t6I67kGfwviULpSH2pSx1pHxkJPR3L3hGPFRTClbMHSt5p8SUBOF+cxzSexZ1r1mruKv86K/rzF4maLq4/SmUlmxkQvsfonUo4fz4HxnkU2keInDiGh0OPc2m6eMBuh1JTC+XOHSglt9C2cLFH00EfYKd99Xuau8q166I/5xVRV1hFnZKKNjczZ6n6CM3d9umzAIcDzvUf6Hcy6EnLM2HQ0/52unjs97vREh6NlrCxvG9/WtXQ6PzbUa5pW5UBO+0xnLtyeM9VVo4Was606uIafzuLOhzJ06GUWuCqrUVr9Hj6htQyRC7fJ02ho8Bo5lHgWLJcLLVjF+t7uEfrWVyx2fh/rXLXBtFQ0PrWErfes7i8a8SemAzlWrF4c+MmGLVGiO2pkbA9NQJ31WgLHQn76wvg/PYcWleuxl1aqzOVkRzHxzuZRkPbwUNoTkmVehqdeV/zmeotooB72+e8jPZTVHP0OFxWK2wjwun9EQa92EPuQhqGPQNOiMowGRtDhqv5cDSySGup12mlnuYsUrx4t2Ssg+PAQTSnvQl27CvfvW9vUj/0adxLnaYOhWZunPmA1rtly1Y4Dn+JerqU62YJOiqsPnmT2iGh0FPDYjepkbHLecv2HWjetp3X9i1ZYMe27B2fvMn/Bw+DIAR3aLyjRrUvcwMhRq0udubdzJbevYf36+IToLQ74fjnNz57k9uDhkIwBNU0Mtw9WcsoZ0OMPd09vXdT9kdoysr2aFpP/h1wuVATn+izN6kc+FO4qWLxSRopvKepeTRqGR6tRPQktq3bYNvzicejYcUqsNNEe93xJhUDBoFhpWjzwaLW5Xq91aA3auvSFqFp7z6Pvjp2PKAoaCsq6rY3KQseiLL+gnIWvaDRB3vX1sxfiNaz/0H5oCG8VzF4KBznvoOruRnVz03rtjcpfWIAHhSVkxJh/yoPpf2f9PQasraBnfp16/3yJiX9gnGrX39KMFjurksEchakzg1a0ZM+IreEDkfLv8+iPDrGo7/96utQnE40HT/hjzeH3AjqhxtBT+gQvZvu2eOyr4m6/CbFrbd/cwYVyc97ZpYx0XBWV6O9vBylo8L88BZ9UvxYEDrjuoqx9q6t+zALNRs/8NS3IqPgrKhAW1kZSkaH++Eta1LU9zEUPSoQ+eOSvrIn5izKWs5kXRI1Bg2fH/DU14eGoPXiRXQ0NOJmZJQ/3jRKyJU+j+Kqh74C2dPUTNu5XtZNuV/hRrSJ6/4XPABNp0/DUVyM6+ERfngbteTKI33yL/fug0sUFrvOvXNj4iTU79vH82K6aKvZjLu5ubgWFuGXt9BK/ZXefczkUmDvTHPgI7iXi/paRk5XeuvSZbC8/Aqq1mSgvbISVWvXwX9vY34pMDCNmIOCgi70CrRc6NUL33MCQWseRW2MFwy5iEXRJtzevBm35s7FxYGDpMZ/b6kJDLQQ9zEHBoZ+37OXpTCgJwp7CrrOvUQtcua/N8737Gn5lu5K9KfgJwELCwICzN/16AENAQEs6hA9b1rf9UZtQY8e+TRmmgkJcu/6A6Zwi6KvDJaMAAAAAElFTkSuQmCC" alt="Іконка PDFgear" width="48" height="48"></div><h2 class="name">PDFgear</h2><span class="environment">PDF-документи</span><p class="summary">Програма для перегляду й редагування PDF, додавання приміток, об’єднання файлів і перетворення документів.</p><span class="site">pdfgear.com</span></div><span class="open" aria-label="Відкрити офіційний сайт у новій вкладці">↗</span></a></section><section class="support" aria-labelledby="support-title"><h2 id="support-title">Контакти технічної підтримки</h2><div class="support-grid"><article class="support-card"><h3>Impuls</h3><div class="contact"><span class="phone">0933856476</span><span class="channel">Signal, WhatsApp · лише текстові повідомлення</span></div></article><article class="support-card"><h3>Графіт</h3><div class="contact"><span class="phone">380736971488</span><span class="channel">Signal</span></div><div class="contact"><span class="phone">380736961488</span><span class="channel">Signal</span></div></article><article class="support-card"><h3>Дельта</h3><div class="contact"><span class="phone">380 50 478 81 27</span><span class="channel">Signal, WhatsApp</span></div></article><article class="support-card"><h3>Айсберг</h3><div class="contact"><span class="phone">+380 73 696 1488</span><span class="channel">WhatsApp</span></div></article></div></section><footer><span>Натисніть на плитку, щоб перейти на офіційний сайт програми.</span><span>3 програми · Посилання відкриваються в новій вкладці</span></footer></main></div></body></html>
